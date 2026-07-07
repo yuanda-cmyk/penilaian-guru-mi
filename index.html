@@ -3,265 +3,260 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aplikasi Nilai Siswa MI</title>
+  <title>Penilaian Guru MI</title>
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 20px;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ffe3f0, #fff7fb);
-      color: #5d2140;
+      background: #fff0f6;
+      color: #5a1741;
     }
-    .container {
-      max-width: 1250px;
+    .login-page, .app-page {
+      min-height: 100vh;
+      padding: 30px 15px;
+    }
+    .login-box, .container {
+      max-width: 1200px;
       margin: auto;
-      padding: 28px;
       background: white;
       border-radius: 20px;
-      box-shadow: 0 8px 28px rgba(205, 55, 130, .18);
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(209, 38, 125, 0.16);
     }
-    h1 {
-      margin: 0;
-      text-align: center;
-      color: #d63384;
+    .login-box {
+      max-width: 440px;
+      margin-top: 70px;
     }
-    .subtitle {
-      text-align: center;
-      color: #9d3c69;
-      margin: 10px 0 25px;
-    }
-    .ringkasan {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 25px;
-    }
-    .kartu {
-      padding: 14px;
-      text-align: center;
-      border: 1px solid #f5b6d2;
-      border-radius: 12px;
-      background: #fff0f7;
-    }
-    .kartu h3 {
-      margin: 0;
-      color: #c51f70;
-      font-size: 16px;
-    }
-    .kartu p {
-      margin: 8px 0 0;
-      color: #7e3157;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-    .full { grid-column: span 2; }
+    h1, h2 { color: #d6297d; margin-top: 0; }
+    .subtitle { color: #8d4b70; }
     label {
       display: block;
+      margin-top: 15px;
       margin-bottom: 6px;
-      color: #a61e62;
       font-weight: bold;
+      color: #b81767;
     }
     input, select {
       width: 100%;
-      padding: 11px;
-      border: 1px solid #f2a6c8;
-      border-radius: 9px;
+      padding: 12px;
+      border: 1px solid #ff9cc7;
+      border-radius: 10px;
       font-size: 15px;
       outline: none;
     }
     input:focus, select:focus {
-      border-color: #d63384;
+      border-color: #d6297d;
       box-shadow: 0 0 0 3px #ffe0ee;
     }
-    .info, .catatan {
-      margin-top: 16px;
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 14px;
-    }
-    .info {
-      color: #9b2d60;
-      border: 1px solid #f6c0d8;
-      background: #fff0f7;
-    }
-    .catatan {
-      color: #7e3157;
-      border-left: 5px solid #d63384;
-      background: #fff8fc;
-    }
     button {
-      margin-top: 20px;
-      margin-right: 8px;
-      padding: 12px 18px;
-      border: 0;
-      border-radius: 9px;
-      background: #d63384;
-      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-top: 18px;
+      cursor: pointer;
       font-size: 15px;
       font-weight: bold;
-      cursor: pointer;
+      background: #d6297d;
+      color: white;
     }
-    button:hover { background: #b91f6d; }
-    .reset { background: #8d4d6d; }
-    .hapus {
-      margin: 0;
-      padding: 7px 10px;
-      background: #ef5b91;
-      font-size: 12px;
+    button:hover { background: #b81767; }
+    .btn-secondary { background: #8f4b70; margin-left: 8px; }
+    .btn-secondary:hover { background: #6f3455; }
+    .btn-danger { background: #ee5c91; margin: 0; padding: 8px 10px; }
+    .hidden { display: none; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
-    .pencarian { margin-top: 30px; }
-    .table-wrap { overflow-x: auto; }
+    .user-info {
+      background: #fff0f6;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: #8d4b70;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+    .full { grid-column: 1 / -1; }
+    .info {
+      margin-top: 18px;
+      padding: 12px;
+      background: #fff3f8;
+      border-left: 5px solid #d6297d;
+      border-radius: 8px;
+      color: #9b245f;
+    }
+    .error {
+      margin-top: 12px;
+      color: #c21f5d;
+      font-weight: bold;
+    }
+    .success {
+      margin-top: 12px;
+      color: #14834b;
+      font-weight: bold;
+    }
+    .search-box { margin-top: 25px; }
+    .table-wrap { overflow-x: auto; margin-top: 15px; }
     table {
       width: 100%;
-      min-width: 1100px;
-      margin-top: 16px;
       border-collapse: collapse;
-    }
-    th, td {
-      padding: 10px;
-      text-align: center;
-      border: 1px solid #f4bdd4;
+      min-width: 1050px;
     }
     th {
+      background: #d6297d;
       color: white;
-      background: #d63384;
+      padding: 12px 8px;
     }
-    tr:nth-child(even) { background: #fff2f8; }
-    .kosong {
-      padding: 18px;
-      color: #a04b71;
+    td {
+      padding: 10px 8px;
+      border: 1px solid #ffc2dc;
+      text-align: center;
     }
-    .status {
-      margin-top: 14px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      background: #fff0f7;
-      color: #9b2d60;
-      display: none;
-    }
-    @media (max-width: 800px) {
-      body { padding: 10px; }
-      .container { padding: 18px; }
-      .ringkasan { grid-template-columns: repeat(2, 1fr); }
-      .form-grid { grid-template-columns: 1fr; }
-      .full { grid-column: span 1; }
+    tr:nth-child(even) { background: #fff7fb; }
+    .nilai-akhir { font-weight: bold; color: #b81767; }
+    @media (max-width: 700px) {
+      .grid { grid-template-columns: 1fr; }
+      .full { grid-column: auto; }
+      .login-box, .container { padding: 20px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🌸 Aplikasi Nilai Siswa MI 🌸</h1>
-    <p class="subtitle">Nilai tersimpan online di Firebase</p>
 
-    <div class="ringkasan">
-      <div class="kartu"><h3>Kelas 4A</h3><p>17 siswa<br>Bahasa Indonesia</p></div>
-      <div class="kartu"><h3>Kelas 4B</h3><p>17 siswa<br>Bahasa Indonesia</p></div>
-      <div class="kartu"><h3>Kelas 5</h3><p>28 siswa<br>4 mata pelajaran</p></div>
-      <div class="kartu"><h3>Kelas 6</h3><p>12 siswa<br>4 mata pelajaran</p></div>
+  <section id="loginPage" class="login-page">
+    <div class="login-box">
+      <h1>🌸 Login Guru MI</h1>
+      <p class="subtitle">Masuk untuk mengelola nilai siswa.</p>
+
+      <label>Email</label>
+      <input type="email" id="emailLogin" placeholder="Masukkan email guru">
+
+      <label>Password</label>
+      <input type="password" id="passwordLogin" placeholder="Masukkan password">
+
+      <button id="btnLogin">Masuk</button>
+      <div id="loginMessage" class="error"></div>
     </div>
+  </section>
 
-    <div class="form-grid">
-      <div>
-        <label for="kelas">Kelas</label>
-        <select id="kelas" onchange="ubahMapel()">
-          <option value="">-- Pilih Kelas --</option>
-          <option value="4A">Kelas 4A</option>
-          <option value="4B">Kelas 4B</option>
-          <option value="5">Kelas 5</option>
-          <option value="6">Kelas 6</option>
-        </select>
+  <section id="appPage" class="app-page hidden">
+    <div class="container">
+      <div class="topbar">
+        <div>
+          <h1>🌸 Penilaian Guru MI</h1>
+          <p class="subtitle">Nilai dapat diisi bertahap. Nilai akhir adalah rata-rata nilai yang sudah diisi.</p>
+        </div>
+        <div>
+          <div id="userEmail" class="user-info"></div>
+          <button id="btnLogout" class="btn-secondary">Keluar</button>
+        </div>
       </div>
 
-      <div>
-        <label for="mapel">Mata Pelajaran</label>
-        <select id="mapel">
-          <option value="">-- Pilih kelas terlebih dahulu --</option>
-        </select>
+      <div class="grid">
+        <div>
+          <label>Kelas</label>
+          <select id="kelas">
+            <option value="">-- Pilih Kelas --</option>
+            <option value="4A">4A</option>
+            <option value="4B">4B</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Mata Pelajaran</label>
+          <select id="mapel">
+            <option value="">-- Pilih Mata Pelajaran --</option>
+          </select>
+        </div>
+
+        <div class="full">
+          <label>Nama Siswa</label>
+          <input id="nama" type="text" placeholder="Masukkan nama siswa">
+        </div>
+
+        <div>
+          <label>Jenis Penilaian</label>
+          <select id="jenisNilai">
+            <option value="">-- Pilih Jenis Nilai --</option>
+            <option value="tugas1">Tugas 1</option>
+            <option value="tugas2">Tugas 2</option>
+            <option value="uh1">UH 1</option>
+            <option value="uh2">UH 2</option>
+            <option value="uas">UAS</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Nilai</label>
+          <input id="nilai" type="number" min="0" max="100" placeholder="0 sampai 100">
+        </div>
       </div>
 
-      <div class="full">
-        <label for="nama">Nama Siswa</label>
-        <input id="nama" type="text" placeholder="Masukkan nama siswa">
+      <div id="batasInfo" class="info">Pilih kelas untuk melihat batas siswa.</div>
+      <div class="info">Nilai akhir adalah rata-rata sementara dari nilai yang sudah diisi. Nilai yang belum diisi akan tampil sebagai tanda “-”.</div>
+
+      <button id="btnSimpan">Simpan Nilai</button>
+      <button id="btnHapusSemua" class="btn-secondary">Hapus Semua Data</button>
+      <div id="appMessage"></div>
+
+      <div class="search-box">
+        <label>Cari Nama Siswa</label>
+        <input id="cari" type="text" placeholder="Ketik nama siswa...">
       </div>
 
-      <div>
-        <label for="jenisNilai">Jenis Penilaian</label>
-        <select id="jenisNilai">
-          <option value="">-- Pilih Jenis Nilai --</option>
-          <option value="tugas1">Tugas 1</option>
-          <option value="tugas2">Tugas 2</option>
-          <option value="uh1">UH 1</option>
-          <option value="uh2">UH 2</option>
-          <option value="uas">UAS</option>
-        </select>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Siswa</th>
+              <th>Kelas</th>
+              <th>Mata Pelajaran</th>
+              <th>Tugas 1</th>
+              <th>Tugas 2</th>
+              <th>UH 1</th>
+              <th>UH 2</th>
+              <th>UAS</th>
+              <th>Nilai Akhir Sementara</th>
+              <th>Kategori</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tabelNilai"></tbody>
+        </table>
       </div>
-
-      <div>
-        <label for="nilai">Nilai</label>
-        <input id="nilai" type="number" min="0" max="100" placeholder="0 sampai 100">
-      </div>
     </div>
-
-    <div class="info" id="infoKelas">
-      Pilih kelas untuk melihat mata pelajaran dan jumlah siswa.
-    </div>
-
-    <div class="catatan">
-      Nilai akhir adalah rata-rata sementara dari nilai yang sudah diisi.
-      Nilai dapat diinput bertahap dan tersimpan di Firebase.
-    </div>
-
-    <button onclick="simpanNilaiBertahap()">Simpan Nilai</button>
-    <button class="reset" onclick="hapusSemuaData()">Hapus Semua Data</button>
-
-    <div id="status" class="status"></div>
-
-    <div class="pencarian">
-      <label for="cari">Cari Nama Siswa</label>
-      <input id="cari" type="text" placeholder="Ketik nama siswa..." onkeyup="tampilkanData()">
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Nama Siswa</th>
-            <th>Kelas</th>
-            <th>Mata Pelajaran</th>
-            <th>Tugas 1</th>
-            <th>Tugas 2</th>
-            <th>UH 1</th>
-            <th>UH 2</th>
-            <th>UAS</th>
-            <th>Nilai Akhir Sementara</th>
-            <th>Kategori</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="tabelNilai"></tbody>
-      </table>
-    </div>
-  </div>
+  </section>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
     import {
+      getAuth,
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+    import {
       getFirestore,
       collection,
-      getDocs,
       addDoc,
-      updateDoc,
+      getDocs,
+      query,
+      orderBy,
       deleteDoc,
       doc,
-      serverTimestamp,
-      writeBatch
+      updateDoc,
+      where
     } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -274,276 +269,249 @@
     };
 
     const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
     const db = getFirestore(app);
-    const koleksiNilai = collection(db, "nilaiSiswa");
 
     const batasSiswa = {
-      "4A": 17,
+      "4A": 20,
       "4B": 17,
       "5": 28,
       "6": 12
     };
 
-    let dataNilai = [];
+    const mapelKelas = {
+      "4A": ["Bahasa Indonesia"],
+      "4B": ["Bahasa Indonesia"],
+      "5": ["Aqidah Akhlak", "SKI", "Fiqh", "Quran Hadits"],
+      "6": ["Aqidah Akhlak", "SKI", "Fiqh", "Quran Hadits"]
+    };
 
-    function tampilStatus(teks) {
-      const status = document.getElementById("status");
-      status.textContent = teks;
-      status.style.display = "block";
+    const loginPage = document.getElementById("loginPage");
+    const appPage = document.getElementById("appPage");
+    const emailLogin = document.getElementById("emailLogin");
+    const passwordLogin = document.getElementById("passwordLogin");
+    const loginMessage = document.getElementById("loginMessage");
+    const userEmail = document.getElementById("userEmail");
+    const kelas = document.getElementById("kelas");
+    const mapel = document.getElementById("mapel");
+    const nama = document.getElementById("nama");
+    const jenisNilai = document.getElementById("jenisNilai");
+    const nilai = document.getElementById("nilai");
+    const tabelNilai = document.getElementById("tabelNilai");
+    const cari = document.getElementById("cari");
+    const batasInfo = document.getElementById("batasInfo");
+    const appMessage = document.getElementById("appMessage");
 
+    let semuaData = [];
+
+    function tampilPesan(text, tipe = "success") {
+      appMessage.className = tipe;
+      appMessage.textContent = text;
       setTimeout(() => {
-        status.style.display = "none";
+        appMessage.textContent = "";
+        appMessage.className = "";
       }, 3500);
     }
 
-    window.ubahMapel = function () {
-      const kelas = document.getElementById("kelas").value;
-      const mapel = document.getElementById("mapel");
-      const infoKelas = document.getElementById("infoKelas");
-
-      mapel.innerHTML = '<option value="">-- Pilih Mata Pelajaran --</option>';
-
-      let daftarMapel = [];
-
-      if (kelas === "4A" || kelas === "4B") {
-        daftarMapel = ["Bahasa Indonesia"];
-      }
-
-      if (kelas === "5" || kelas === "6") {
-        daftarMapel = [
-          "Aqidah Akhlak",
-          "SKI",
-          "Fiqh",
-          "Qur'an Hadits"
-        ];
-      }
-
-      daftarMapel.forEach(function (namaMapel) {
-        const option = document.createElement("option");
-        option.value = namaMapel;
-        option.textContent = namaMapel;
-        mapel.appendChild(option);
-      });
-
-      if (kelas) {
-        infoKelas.textContent =
-          "Kelas " + kelas + " memiliki maksimal " + batasSiswa[kelas] + " siswa.";
-      } else {
-        infoKelas.textContent =
-          "Pilih kelas untuk melihat mata pelajaran dan jumlah siswa.";
-      }
-    };
-
-    function hitungNilaiAkhir(data) {
-      const daftarNilai = [
-        data.tugas1,
-        data.tugas2,
-        data.uh1,
-        data.uh2,
-        data.uas
-      ].filter(function (nilai) {
-        return nilai !== null && nilai !== undefined;
-      });
-
-      if (daftarNilai.length === 0) return null;
-
-      const total = daftarNilai.reduce(function (jumlah, nilai) {
-        return jumlah + nilai;
-      }, 0);
-
-      return Number((total / daftarNilai.length).toFixed(2));
-    }
-
-    function kategoriNilai(nilai) {
-      if (nilai === null) return "-";
-      if (nilai >= 90) return "Sangat Baik";
-      if (nilai >= 75) return "Baik";
-      if (nilai >= 60) return "Cukup";
+    function kategoriNilai(rata) {
+      if (rata >= 90) return "Sangat Baik";
+      if (rata >= 75) return "Baik";
+      if (rata >= 60) return "Cukup";
       return "Perlu Bimbingan";
     }
 
-    function jumlahSiswaDalamKelas(kelas) {
-      const daftarNama = dataNilai
-        .filter(function (data) {
-          return data.kelas === kelas;
-        })
-        .map(function (data) {
-          return data.nama.toLowerCase();
-        });
+    function hitungRata(data) {
+      const daftar = [data.tugas1, data.tugas2, data.uh1, data.uh2, data.uas]
+        .filter(n => n !== null && n !== undefined && n !== "" && !isNaN(n))
+        .map(Number);
 
-      return new Set(daftarNama).size;
+      if (daftar.length === 0) return null;
+      return daftar.reduce((a, b) => a + b, 0) / daftar.length;
     }
 
-    async function ambilDataFirebase() {
-      try {
-        const hasil = await getDocs(koleksiNilai);
+    function formatNilai(n) {
+      return n === null || n === undefined || n === "" ? "-" : n;
+    }
 
-        dataNilai = hasil.docs.map(function (dokumen) {
-          return {
-            id: dokumen.id,
-            ...dokumen.data()
-          };
+    function isiMapel() {
+      const kelasDipilih = kelas.value;
+      mapel.innerHTML = '<option value="">-- Pilih Mata Pelajaran --</option>';
+
+      if (kelasDipilih && mapelKelas[kelasDipilih]) {
+        mapelKelas[kelasDipilih].forEach(m => {
+          mapel.innerHTML += `<option value="${m}">${m}</option>`;
         });
-
-        tampilkanData();
-      } catch (error) {
-        console.error(error);
-        tampilStatus("Tidak bisa membaca Firebase. Pastikan Firestore sudah aktif.");
+        batasInfo.textContent = `Kelas ${kelasDipilih} memiliki maksimal ${batasSiswa[kelasDipilih]} siswa.`;
+      } else {
+        batasInfo.textContent = "Pilih kelas untuk melihat batas siswa.";
       }
     }
 
-    window.simpanNilaiBertahap = async function () {
-      const nama = document.getElementById("nama").value.trim();
-      const kelas = document.getElementById("kelas").value;
-      const mapel = document.getElementById("mapel").value;
-      const jenisNilai = document.getElementById("jenisNilai").value;
-      const nilaiInput = document.getElementById("nilai").value;
-
-      if (!nama || !kelas || !mapel || !jenisNilai || nilaiInput === "") {
-        alert("Isi nama, kelas, mata pelajaran, jenis penilaian, dan nilai.");
-        return;
-      }
-
-      const nilai = Number(nilaiInput);
-
-      if (nilai < 0 || nilai > 100) {
-        alert("Nilai harus antara 0 sampai 100.");
-        return;
-      }
-
-      try {
-        const indeks = dataNilai.findIndex(function (data) {
-          return (
-            data.nama.toLowerCase() === nama.toLowerCase() &&
-            data.kelas === kelas &&
-            data.mapel === mapel
-          );
-        });
-
-        if (indeks === -1) {
-          if (jumlahSiswaDalamKelas(kelas) >= batasSiswa[kelas]) {
-            alert("Kelas " + kelas + " sudah mencapai batas maksimal siswa.");
-            return;
-          }
-
-          const siswaBaru = {
-            nama: nama,
-            kelas: kelas,
-            mapel: mapel,
-            tugas1: null,
-            tugas2: null,
-            uh1: null,
-            uh2: null,
-            uas: null,
-            dibuatPada: serverTimestamp()
-          };
-
-          siswaBaru[jenisNilai] = nilai;
-
-          await addDoc(koleksiNilai, siswaBaru);
-        } else {
-          await updateDoc(doc(db, "nilaiSiswa", dataNilai[indeks].id), {
-            [jenisNilai]: nilai
-          });
-        }
-
-        document.getElementById("nama").value = "";
-        document.getElementById("jenisNilai").value = "";
-        document.getElementById("nilai").value = "";
-
-        tampilStatus("Nilai berhasil disimpan ke Firebase.");
-        await ambilDataFirebase();
-      } catch (error) {
-        console.error(error);
-        tampilStatus("Gagal menyimpan. Periksa aturan Firestore.");
-      }
-    };
-
-    function nilaiTampil(nilai) {
-      if (nilai === null || nilai === undefined) return "-";
-      return nilai;
+    async function ambilData() {
+      const q = query(collection(db, "nilaiSiswa"), orderBy("dibuatPada", "desc"));
+      const snapshot = await getDocs(q);
+      semuaData = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      tampilTabel();
     }
 
-    window.tampilkanData = function () {
-      const tabelNilai = document.getElementById("tabelNilai");
-      const kataCari = document.getElementById("cari").value.toLowerCase();
-
-      const hasil = dataNilai.filter(function (data) {
-        return data.nama.toLowerCase().includes(kataCari);
-      });
-
-      if (hasil.length === 0) {
-        tabelNilai.innerHTML =
-          '<tr><td colspan="12" class="kosong">Belum ada data nilai siswa.</td></tr>';
-        return;
-      }
-
-      tabelNilai.innerHTML = hasil.map(function (data, index) {
-        const akhir = hitungNilaiAkhir(data);
-
-        return `
-          <tr>
-            <td>${index + 1}</td>
-            <td>${data.nama}</td>
-            <td>${data.kelas}</td>
-            <td>${data.mapel}</td>
-            <td>${nilaiTampil(data.tugas1)}</td>
-            <td>${nilaiTampil(data.tugas2)}</td>
-            <td>${nilaiTampil(data.uh1)}</td>
-            <td>${nilaiTampil(data.uh2)}</td>
-            <td>${nilaiTampil(data.uas)}</td>
-            <td><strong>${akhir === null ? "-" : akhir}</strong></td>
-            <td>${kategoriNilai(akhir)}</td>
-            <td>
-              <button class="hapus" onclick="hapusData('${data.id}')">
-                Hapus
-              </button>
-            </td>
-          </tr>
-        `;
-      }).join("");
-    };
-
-    window.hapusData = async function (id) {
-      const yakin = confirm(
-        "Hapus semua nilai siswa ini pada mata pelajaran tersebut?"
+    function tampilTabel() {
+      const kata = cari.value.toLowerCase();
+      const dataFilter = semuaData.filter(item =>
+        item.nama.toLowerCase().includes(kata)
       );
 
-      if (!yakin) return;
+      tabelNilai.innerHTML = "";
 
-      try {
-        await deleteDoc(doc(db, "nilaiSiswa", id));
-        tampilStatus("Data berhasil dihapus.");
-        await ambilDataFirebase();
-      } catch (error) {
-        console.error(error);
-        tampilStatus("Gagal menghapus data.");
+      dataFilter.forEach((item, index) => {
+        const rata = hitungRata(item);
+        const kategori = rata === null ? "-" : kategoriNilai(rata);
+
+        tabelNilai.innerHTML += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${item.nama}</td>
+            <td>${item.kelas}</td>
+            <td>${item.mapel}</td>
+            <td>${formatNilai(item.tugas1)}</td>
+            <td>${formatNilai(item.tugas2)}</td>
+            <td>${formatNilai(item.uh1)}</td>
+            <td>${formatNilai(item.uh2)}</td>
+            <td>${formatNilai(item.uas)}</td>
+            <td class="nilai-akhir">${rata === null ? "-" : rata.toFixed(2)}</td>
+            <td>${kategori}</td>
+            <td><button class="btn-danger" onclick="hapusData('${item.id}')">Hapus</button></td>
+          </tr>
+        `;
+      });
+    }
+
+    async function jumlahSiswaKelas(kelasDipilih) {
+      const siswaUnik = new Set(
+        semuaData
+          .filter(item => item.kelas === kelasDipilih)
+          .map(item => item.nama.trim().toLowerCase())
+      );
+      return siswaUnik.size;
+    }
+
+    async function simpanNilai() {
+      const kelasDipilih = kelas.value;
+      const mapelDipilih = mapel.value;
+      const namaSiswa = nama.value.trim();
+      const jenis = jenisNilai.value;
+      const nilaiAngka = Number(nilai.value);
+
+      if (!kelasDipilih || !mapelDipilih || !namaSiswa || !jenis || nilai.value === "") {
+        tampilPesan("Lengkapi semua kolom terlebih dahulu.", "error");
+        return;
       }
-    };
 
-    window.hapusSemuaData = async function () {
-      const yakin = confirm("Yakin ingin menghapus semua data nilai?");
+      if (nilaiAngka < 0 || nilaiAngka > 100) {
+        tampilPesan("Nilai harus antara 0 sampai 100.", "error");
+        return;
+      }
 
-      if (!yakin) return;
+      const dataSama = semuaData.find(item =>
+        item.kelas === kelasDipilih &&
+        item.mapel === mapelDipilih &&
+        item.nama.trim().toLowerCase() === namaSiswa.toLowerCase()
+      );
 
-      try {
-        const batch = writeBatch(db);
-
-        dataNilai.forEach(function (data) {
-          batch.delete(doc(db, "nilaiSiswa", data.id));
+      if (dataSama) {
+        await updateDoc(doc(db, "nilaiSiswa", dataSama.id), {
+          [jenis]: nilaiAngka,
+          diubahPada: new Date().toISOString()
         });
+        tampilPesan("Nilai siswa berhasil diperbarui.");
+      } else {
+        const jumlah = await jumlahSiswaKelas(kelasDipilih);
 
-        await batch.commit();
+        if (jumlah >= batasSiswa[kelasDipilih]) {
+          tampilPesan(`Kelas ${kelasDipilih} sudah mencapai batas maksimal ${batasSiswa[kelasDipilih]} siswa.`, "error");
+          return;
+        }
 
-        tampilStatus("Semua data berhasil dihapus.");
-        await ambilDataFirebase();
-      } catch (error) {
-        console.error(error);
-        tampilStatus("Gagal menghapus semua data.");
+        const dataBaru = {
+          nama: namaSiswa,
+          kelas: kelasDipilih,
+          mapel: mapelDipilih,
+          tugas1: null,
+          tugas2: null,
+          uh1: null,
+          uh2: null,
+          uas: null,
+          dibuatPada: new Date().toISOString()
+        };
+
+        dataBaru[jenis] = nilaiAngka;
+
+        await addDoc(collection(db, "nilaiSiswa"), dataBaru);
+        tampilPesan("Siswa dan nilai baru berhasil disimpan.");
       }
+
+      nama.value = "";
+      jenisNilai.value = "";
+      nilai.value = "";
+      await ambilData();
+    }
+
+    window.hapusData = async function(id) {
+      const yakin = confirm("Yakin ingin menghapus data siswa ini?");
+      if (!yakin) return;
+
+      await deleteDoc(doc(db, "nilaiSiswa", id));
+      tampilPesan("Data berhasil dihapus.");
+      await ambilData();
     };
 
-    ambilDataFirebase();
+    async function hapusSemuaData() {
+      const yakin = confirm("Yakin ingin menghapus SEMUA data nilai?");
+      if (!yakin) return;
+
+      for (const item of semuaData) {
+        await deleteDoc(doc(db, "nilaiSiswa", item.id));
+      }
+
+      tampilPesan("Semua data berhasil dihapus.");
+      await ambilData();
+    }
+
+    document.getElementById("btnLogin").addEventListener("click", async () => {
+      loginMessage.textContent = "";
+
+      try {
+        await signInWithEmailAndPassword(
+          auth,
+          emailLogin.value.trim(),
+          passwordLogin.value
+        );
+      } catch (error) {
+        loginMessage.textContent = "Email atau password salah.";
+      }
+    });
+
+    document.getElementById("btnLogout").addEventListener("click", async () => {
+      await signOut(auth);
+    });
+
+    document.getElementById("btnSimpan").addEventListener("click", simpanNilai);
+    document.getElementById("btnHapusSemua").addEventListener("click", hapusSemuaData);
+    kelas.addEventListener("change", isiMapel);
+    cari.addEventListener("input", tampilTabel);
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        loginPage.classList.add("hidden");
+        appPage.classList.remove("hidden");
+        userEmail.textContent = "Login sebagai: " + user.email;
+        await ambilData();
+      } else {
+        loginPage.classList.remove("hidden");
+        appPage.classList.add("hidden");
+        emailLogin.value = "";
+        passwordLogin.value = "";
+      }
+    });
   </script>
 </body>
 </html>
