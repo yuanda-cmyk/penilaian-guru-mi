@@ -4,32 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Penilaian Guru MI</title>
+
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #fff0f6;
       color: #5a1741;
     }
+
+    .hidden { display: none !important; }
+
     .login-page, .app-page {
       min-height: 100vh;
       padding: 30px 15px;
     }
+
     .login-box, .container {
-      max-width: 1200px;
+      max-width: 1250px;
       margin: auto;
       background: white;
       border-radius: 20px;
       padding: 28px;
       box-shadow: 0 10px 30px rgba(209, 38, 125, 0.16);
     }
+
     .login-box {
       max-width: 440px;
       margin-top: 70px;
     }
-    h1, h2 { color: #d6297d; margin-top: 0; }
-    .subtitle { color: #8d4b70; }
+
+    h1, h2 {
+      color: #d6297d;
+      margin-top: 0;
+    }
+
+    .subtitle {
+      color: #8d4b70;
+      margin-bottom: 20px;
+    }
+
     label {
       display: block;
       margin-top: 15px;
@@ -37,34 +53,72 @@
       font-weight: bold;
       color: #b81767;
     }
-    input, select {
+
+    input, select, textarea {
       width: 100%;
       padding: 12px;
       border: 1px solid #ff9cc7;
       border-radius: 10px;
       font-size: 15px;
       outline: none;
+      font-family: Arial, sans-serif;
     }
-    input:focus, select:focus {
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
       border-color: #d6297d;
       box-shadow: 0 0 0 3px #ffe0ee;
     }
+
     button {
       border: none;
       border-radius: 10px;
       padding: 12px 16px;
       margin-top: 18px;
+      margin-right: 8px;
       cursor: pointer;
       font-size: 15px;
       font-weight: bold;
       background: #d6297d;
       color: white;
     }
+
     button:hover { background: #b81767; }
-    .btn-secondary { background: #8f4b70; margin-left: 8px; }
-    .btn-secondary:hover { background: #6f3455; }
-    .btn-danger { background: #ee5c91; margin: 0; padding: 8px 10px; }
-    .hidden { display: none; }
+
+    .btn-secondary {
+      background: #8f4b70;
+    }
+
+    .btn-secondary:hover {
+      background: #6f3455;
+    }
+
+    .btn-danger {
+      background: #ee5c91;
+      margin: 0;
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    .btn-edit {
+      background: #8b5cf6;
+      margin: 0 5px 0 0;
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    .btn-excel {
+      background: #168a4b;
+    }
+
+    .btn-excel:hover {
+      background: #0f6e3a;
+    }
+
     .topbar {
       display: flex;
       justify-content: space-between;
@@ -73,18 +127,25 @@
       margin-bottom: 20px;
       flex-wrap: wrap;
     }
+
     .user-info {
       background: #fff0f6;
       padding: 10px 14px;
       border-radius: 10px;
       color: #8d4b70;
+      margin-bottom: 5px;
     }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 15px;
     }
-    .full { grid-column: 1 / -1; }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
     .info {
       margin-top: 18px;
       padding: 12px;
@@ -93,42 +154,104 @@
       border-radius: 8px;
       color: #9b245f;
     }
+
     .error {
       margin-top: 12px;
       color: #c21f5d;
       font-weight: bold;
     }
+
     .success {
       margin-top: 12px;
       color: #14834b;
       font-weight: bold;
     }
-    .search-box { margin-top: 25px; }
-    .table-wrap { overflow-x: auto; margin-top: 15px; }
+
+    .fitur-box {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #ffc2dc;
+      border-radius: 15px;
+      background: #fff8fc;
+    }
+
+    .search-box {
+      margin-top: 25px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 15px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 1050px;
+      min-width: 1100px;
     }
+
     th {
       background: #d6297d;
       color: white;
       padding: 12px 8px;
     }
+
     td {
       padding: 10px 8px;
       border: 1px solid #ffc2dc;
       text-align: center;
     }
-    tr:nth-child(even) { background: #fff7fb; }
-    .nilai-akhir { font-weight: bold; color: #b81767; }
+
+    tr:nth-child(even) {
+      background: #fff7fb;
+    }
+
+    .nilai-akhir {
+      font-weight: bold;
+      color: #b81767;
+    }
+
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(73, 18, 52, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      z-index: 999;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 500px;
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    }
+
+    .modal p {
+      color: #8d4b70;
+      line-height: 1.5;
+    }
+
     @media (max-width: 700px) {
-      .grid { grid-template-columns: 1fr; }
-      .full { grid-column: auto; }
-      .login-box, .container { padding: 20px; }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .full {
+        grid-column: auto;
+      }
+
+      .login-box, .container {
+        padding: 20px;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <section id="loginPage" class="login-page">
@@ -149,16 +272,22 @@
 
   <section id="appPage" class="app-page hidden">
     <div class="container">
+
       <div class="topbar">
         <div>
           <h1>🌸 Penilaian Guru MI</h1>
-          <p class="subtitle">Nilai dapat diisi bertahap. Nilai akhir adalah rata-rata nilai yang sudah diisi.</p>
+          <p class="subtitle">
+            Nilai dapat diisi bertahap. Nilai akhir adalah rata-rata dari nilai yang sudah diisi.
+          </p>
         </div>
+
         <div>
           <div id="userEmail" class="user-info"></div>
           <button id="btnLogout" class="btn-secondary">Keluar</button>
         </div>
       </div>
+
+      <h2>Input Nilai Siswa</h2>
 
       <div class="grid">
         <div>
@@ -202,12 +331,54 @@
         </div>
       </div>
 
-      <div id="batasInfo" class="info">Pilih kelas untuk melihat batas siswa.</div>
-      <div class="info">Nilai akhir adalah rata-rata sementara dari nilai yang sudah diisi. Nilai yang belum diisi akan tampil sebagai tanda “-”.</div>
+      <div id="batasInfo" class="info">
+        Pilih kelas untuk melihat batas siswa.
+      </div>
 
       <button id="btnSimpan">Simpan Nilai</button>
       <button id="btnHapusSemua" class="btn-secondary">Hapus Semua Data</button>
+      <button id="btnDownloadExcel" class="btn-excel">Download Excel</button>
+
       <div id="appMessage"></div>
+
+      <div class="fitur-box">
+        <h2>Tambah Daftar Nama Siswa Otomatis</h2>
+        <p class="subtitle">
+          Pilih kelas dan mata pelajaran, lalu tempel nama siswa. Satu nama untuk satu baris.
+        </p>
+
+        <div class="grid">
+          <div>
+            <label>Kelas untuk daftar siswa</label>
+            <select id="kelasDaftar">
+              <option value="">-- Pilih Kelas --</option>
+              <option value="4A">4A</option>
+              <option value="4B">4B</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Mata Pelajaran untuk daftar siswa</label>
+            <select id="mapelDaftar">
+              <option value="">-- Pilih Mata Pelajaran --</option>
+            </select>
+          </div>
+
+          <div class="full">
+            <label>Daftar Nama Siswa</label>
+            <textarea id="daftarNama" placeholder="Contoh:
+Ahmad Dwi Amiruddin
+Siti Aisyah
+Muhammad Rizky
+Fatimah Zahra"></textarea>
+          </div>
+        </div>
+
+        <button id="btnTambahDaftar">Tambah Semua Siswa</button>
+        <div id="daftarMessage"></div>
+      </div>
 
       <div class="search-box">
         <label>Cari Nama Siswa</label>
@@ -227,7 +398,7 @@
               <th>UH 1</th>
               <th>UH 2</th>
               <th>UAS</th>
-              <th>Nilai Akhir Sementara</th>
+              <th>Nilai Akhir</th>
               <th>Kategori</th>
               <th>Aksi</th>
             </tr>
@@ -235,8 +406,33 @@
           <tbody id="tabelNilai"></tbody>
         </table>
       </div>
+
     </div>
   </section>
+
+  <div id="modalEditBg" class="modal-bg hidden">
+    <div class="modal">
+      <h2>Edit Nilai Siswa</h2>
+      <p id="editInfo"></p>
+
+      <label>Jenis Nilai</label>
+      <select id="editJenisNilai">
+        <option value="tugas1">Tugas 1</option>
+        <option value="tugas2">Tugas 2</option>
+        <option value="uh1">UH 1</option>
+        <option value="uh2">UH 2</option>
+        <option value="uas">UAS</option>
+      </select>
+
+      <label>Nilai Baru</label>
+      <input id="editNilai" type="number" min="0" max="100" placeholder="0 sampai 100">
+
+      <button id="btnSimpanEdit">Simpan Perubahan</button>
+      <button id="btnBatalEdit" class="btn-secondary">Batal</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
@@ -251,12 +447,9 @@
       collection,
       addDoc,
       getDocs,
-      query,
-      orderBy,
       deleteDoc,
       doc,
-      updateDoc,
-      where
+      updateDoc
     } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -292,6 +485,7 @@
     const passwordLogin = document.getElementById("passwordLogin");
     const loginMessage = document.getElementById("loginMessage");
     const userEmail = document.getElementById("userEmail");
+
     const kelas = document.getElementById("kelas");
     const mapel = document.getElementById("mapel");
     const nama = document.getElementById("nama");
@@ -302,18 +496,31 @@
     const batasInfo = document.getElementById("batasInfo");
     const appMessage = document.getElementById("appMessage");
 
-    let semuaData = [];
+    const kelasDaftar = document.getElementById("kelasDaftar");
+    const mapelDaftar = document.getElementById("mapelDaftar");
+    const daftarNama = document.getElementById("daftarNama");
+    const daftarMessage = document.getElementById("daftarMessage");
 
-    function tampilPesan(text, tipe = "success") {
-      appMessage.className = tipe;
-      appMessage.textContent = text;
+    const modalEditBg = document.getElementById("modalEditBg");
+    const editInfo = document.getElementById("editInfo");
+    const editJenisNilai = document.getElementById("editJenisNilai");
+    const editNilai = document.getElementById("editNilai");
+
+    let semuaData = [];
+    let idSedangDiedit = null;
+
+    function tampilPesan(element, text, tipe = "success") {
+      element.className = tipe;
+      element.textContent = text;
+
       setTimeout(() => {
-        appMessage.textContent = "";
-        appMessage.className = "";
-      }, 3500);
+        element.textContent = "";
+        element.className = "";
+      }, 4000);
     }
 
     function kategoriNilai(rata) {
+      if (rata === null) return "-";
       if (rata >= 90) return "Sangat Baik";
       if (rata >= 75) return "Baik";
       if (rata >= 60) return "Cukup";
@@ -321,11 +528,18 @@
     }
 
     function hitungRata(data) {
-      const daftar = [data.tugas1, data.tugas2, data.uh1, data.uh2, data.uas]
+      const daftar = [
+        data.tugas1,
+        data.tugas2,
+        data.uh1,
+        data.uh2,
+        data.uas
+      ]
         .filter(n => n !== null && n !== undefined && n !== "" && !isNaN(n))
         .map(Number);
 
       if (daftar.length === 0) return null;
+
       return daftar.reduce((a, b) => a + b, 0) / daftar.length;
     }
 
@@ -333,38 +547,64 @@
       return n === null || n === undefined || n === "" ? "-" : n;
     }
 
-    function isiMapel() {
-      const kelasDipilih = kelas.value;
-      mapel.innerHTML = '<option value="">-- Pilih Mata Pelajaran --</option>';
+    function isiMapel(selectKelas, selectMapel, infoElement = null) {
+      const kelasDipilih = selectKelas.value;
+
+      selectMapel.innerHTML = '<option value="">-- Pilih Mata Pelajaran --</option>';
 
       if (kelasDipilih && mapelKelas[kelasDipilih]) {
         mapelKelas[kelasDipilih].forEach(m => {
-          mapel.innerHTML += `<option value="${m}">${m}</option>`;
+          selectMapel.innerHTML += `<option value="${m}">${m}</option>`;
         });
-        batasInfo.textContent = `Kelas ${kelasDipilih} memiliki maksimal ${batasSiswa[kelasDipilih]} siswa.`;
-      } else {
-        batasInfo.textContent = "Pilih kelas untuk melihat batas siswa.";
+
+        if (infoElement) {
+          infoElement.textContent =
+            `Kelas ${kelasDipilih} memiliki maksimal ${batasSiswa[kelasDipilih]} siswa.`;
+        }
+      } else if (infoElement) {
+        infoElement.textContent = "Pilih kelas untuk melihat batas siswa.";
       }
     }
 
     async function ambilData() {
-      const q = query(collection(db, "nilaiSiswa"), orderBy("dibuatPada", "desc"));
-      const snapshot = await getDocs(q);
-      semuaData = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      const snapshot = await getDocs(collection(db, "nilaiSiswa"));
+
+      semuaData = snapshot.docs.map(d => ({
+        id: d.id,
+        ...d.data()
+      }));
+
+      semuaData.sort((a, b) => {
+        const kelasA = String(a.kelas);
+        const kelasB = String(b.kelas);
+
+        if (kelasA !== kelasB) return kelasA.localeCompare(kelasB);
+        return a.nama.localeCompare(b.nama);
+      });
+
       tampilTabel();
     }
 
     function tampilTabel() {
-      const kata = cari.value.toLowerCase();
+      const kata = cari.value.toLowerCase().trim();
+
       const dataFilter = semuaData.filter(item =>
         item.nama.toLowerCase().includes(kata)
       );
+
+      if (dataFilter.length === 0) {
+        tabelNilai.innerHTML = `
+          <tr>
+            <td colspan="12">Belum ada data siswa.</td>
+          </tr>
+        `;
+        return;
+      }
 
       tabelNilai.innerHTML = "";
 
       dataFilter.forEach((item, index) => {
         const rata = hitungRata(item);
-        const kategori = rata === null ? "-" : kategoriNilai(rata);
 
         tabelNilai.innerHTML += `
           <tr>
@@ -378,19 +618,23 @@
             <td>${formatNilai(item.uh2)}</td>
             <td>${formatNilai(item.uas)}</td>
             <td class="nilai-akhir">${rata === null ? "-" : rata.toFixed(2)}</td>
-            <td>${kategori}</td>
-            <td><button class="btn-danger" onclick="hapusData('${item.id}')">Hapus</button></td>
+            <td>${kategoriNilai(rata)}</td>
+            <td>
+              <button class="btn-edit" onclick="bukaEdit('${item.id}')">Edit</button>
+              <button class="btn-danger" onclick="hapusData('${item.id}')">Hapus</button>
+            </td>
           </tr>
         `;
       });
     }
 
-    async function jumlahSiswaKelas(kelasDipilih) {
+    function jumlahSiswaKelas(kelasDipilih) {
       const siswaUnik = new Set(
         semuaData
           .filter(item => item.kelas === kelasDipilih)
           .map(item => item.nama.trim().toLowerCase())
       );
+
       return siswaUnik.size;
     }
 
@@ -402,12 +646,12 @@
       const nilaiAngka = Number(nilai.value);
 
       if (!kelasDipilih || !mapelDipilih || !namaSiswa || !jenis || nilai.value === "") {
-        tampilPesan("Lengkapi semua kolom terlebih dahulu.", "error");
+        tampilPesan(appMessage, "Lengkapi semua kolom terlebih dahulu.", "error");
         return;
       }
 
       if (nilaiAngka < 0 || nilaiAngka > 100) {
-        tampilPesan("Nilai harus antara 0 sampai 100.", "error");
+        tampilPesan(appMessage, "Nilai harus antara 0 sampai 100.", "error");
         return;
       }
 
@@ -422,12 +666,17 @@
           [jenis]: nilaiAngka,
           diubahPada: new Date().toISOString()
         });
-        tampilPesan("Nilai siswa berhasil diperbarui.");
+
+        tampilPesan(appMessage, "Nilai siswa berhasil diperbarui.");
       } else {
-        const jumlah = await jumlahSiswaKelas(kelasDipilih);
+        const jumlah = jumlahSiswaKelas(kelasDipilih);
 
         if (jumlah >= batasSiswa[kelasDipilih]) {
-          tampilPesan(`Kelas ${kelasDipilih} sudah mencapai batas maksimal ${batasSiswa[kelasDipilih]} siswa.`, "error");
+          tampilPesan(
+            appMessage,
+            `Kelas ${kelasDipilih} sudah mencapai batas maksimal ${batasSiswa[kelasDipilih]} siswa.`,
+            "error"
+          );
           return;
         }
 
@@ -446,34 +695,197 @@
         dataBaru[jenis] = nilaiAngka;
 
         await addDoc(collection(db, "nilaiSiswa"), dataBaru);
-        tampilPesan("Siswa dan nilai baru berhasil disimpan.");
+
+        tampilPesan(appMessage, "Siswa dan nilai baru berhasil disimpan.");
       }
 
       nama.value = "";
       jenisNilai.value = "";
       nilai.value = "";
+
+      await ambilData();
+    }
+
+    async function tambahDaftarSiswa() {
+      const kelasDipilih = kelasDaftar.value;
+      const mapelDipilih = mapelDaftar.value;
+
+      const namaBaru = daftarNama.value
+        .split("\n")
+        .map(n => n.trim())
+        .filter(n => n !== "");
+
+      if (!kelasDipilih || !mapelDipilih || namaBaru.length === 0) {
+        tampilPesan(
+          daftarMessage,
+          "Pilih kelas, mata pelajaran, lalu isi daftar nama siswa.",
+          "error"
+        );
+        return;
+      }
+
+      const namaSudahAda = semuaData
+        .filter(item => item.kelas === kelasDipilih)
+        .map(item => item.nama.trim().toLowerCase());
+
+      const daftarUnik = [...new Set(
+        namaBaru.map(n => n.trim())
+      )];
+
+      const siswaBaru = daftarUnik.filter(
+        n => !namaSudahAda.includes(n.toLowerCase())
+      );
+
+      const jumlahSekarang = jumlahSiswaKelas(kelasDipilih);
+
+      if (jumlahSekarang + siswaBaru.length > batasSiswa[kelasDipilih]) {
+        tampilPesan(
+          daftarMessage,
+          `Jumlah siswa melebihi batas kelas ${kelasDipilih}. Batasnya ${batasSiswa[kelasDipilih]} siswa.`,
+          "error"
+        );
+        return;
+      }
+
+      let berhasil = 0;
+      let sudahAda = 0;
+
+      for (const namaSiswa of daftarUnik) {
+        const sudahAdaUntukMapel = semuaData.find(item =>
+          item.kelas === kelasDipilih &&
+          item.mapel === mapelDipilih &&
+          item.nama.trim().toLowerCase() === namaSiswa.toLowerCase()
+        );
+
+        if (sudahAdaUntukMapel) {
+          sudahAda++;
+          continue;
+        }
+
+        await addDoc(collection(db, "nilaiSiswa"), {
+          nama: namaSiswa,
+          kelas: kelasDipilih,
+          mapel: mapelDipilih,
+          tugas1: null,
+          tugas2: null,
+          uh1: null,
+          uh2: null,
+          uas: null,
+          dibuatPada: new Date().toISOString()
+        });
+
+        berhasil++;
+      }
+
+      daftarNama.value = "";
+
+      tampilPesan(
+        daftarMessage,
+        `${berhasil} siswa berhasil ditambahkan. ${sudahAda} siswa sudah ada.`,
+        "success"
+      );
+
+      await ambilData();
+    }
+
+    window.bukaEdit = function(id) {
+      const data = semuaData.find(item => item.id === id);
+
+      if (!data) return;
+
+      idSedangDiedit = id;
+
+      editInfo.textContent =
+        `${data.nama} | Kelas ${data.kelas} | ${data.mapel}`;
+
+      editJenisNilai.value = "tugas1";
+      editNilai.value = data.tugas1 ?? "";
+
+      modalEditBg.classList.remove("hidden");
+    };
+
+    async function simpanEdit() {
+      const nilaiBaru = Number(editNilai.value);
+      const jenis = editJenisNilai.value;
+
+      if (!idSedangDiedit) return;
+
+      if (editNilai.value === "" || nilaiBaru < 0 || nilaiBaru > 100) {
+        alert("Isi nilai antara 0 sampai 100.");
+        return;
+      }
+
+      await updateDoc(doc(db, "nilaiSiswa", idSedangDiedit), {
+        [jenis]: nilaiBaru,
+        diubahPada: new Date().toISOString()
+      });
+
+      modalEditBg.classList.add("hidden");
+      idSedangDiedit = null;
+
+      tampilPesan(appMessage, "Nilai berhasil diedit.");
       await ambilData();
     }
 
     window.hapusData = async function(id) {
       const yakin = confirm("Yakin ingin menghapus data siswa ini?");
+
       if (!yakin) return;
 
       await deleteDoc(doc(db, "nilaiSiswa", id));
-      tampilPesan("Data berhasil dihapus.");
+
+      tampilPesan(appMessage, "Data berhasil dihapus.");
       await ambilData();
     };
 
     async function hapusSemuaData() {
       const yakin = confirm("Yakin ingin menghapus SEMUA data nilai?");
+
       if (!yakin) return;
 
       for (const item of semuaData) {
         await deleteDoc(doc(db, "nilaiSiswa", item.id));
       }
 
-      tampilPesan("Semua data berhasil dihapus.");
+      tampilPesan(appMessage, "Semua data berhasil dihapus.");
       await ambilData();
+    }
+
+    function downloadExcel() {
+      if (semuaData.length === 0) {
+        tampilPesan(appMessage, "Belum ada data untuk didownload.", "error");
+        return;
+      }
+
+      const dataExcel = semuaData.map((item, index) => {
+        const rata = hitungRata(item);
+
+        return {
+          "No": index + 1,
+          "Nama Siswa": item.nama,
+          "Kelas": item.kelas,
+          "Mata Pelajaran": item.mapel,
+          "Tugas 1": formatNilai(item.tugas1),
+          "Tugas 2": formatNilai(item.tugas2),
+          "UH 1": formatNilai(item.uh1),
+          "UH 2": formatNilai(item.uh2),
+          "UAS": formatNilai(item.uas),
+          "Nilai Akhir": rata === null ? "-" : Number(rata.toFixed(2)),
+          "Kategori": kategoriNilai(rata)
+        };
+      });
+
+      const worksheet = XLSX.utils.json_to_sheet(dataExcel);
+      const workbook = XLSX.utils.book_new();
+
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Nilai Siswa");
+
+      const tanggal = new Date().toISOString().slice(0, 10);
+
+      XLSX.writeFile(
+        workbook,
+        `Nilai_Siswa_MI_${tanggal}.xlsx`
+      );
     }
 
     document.getElementById("btnLogin").addEventListener("click", async () => {
@@ -496,7 +908,31 @@
 
     document.getElementById("btnSimpan").addEventListener("click", simpanNilai);
     document.getElementById("btnHapusSemua").addEventListener("click", hapusSemuaData);
-    kelas.addEventListener("change", isiMapel);
+    document.getElementById("btnTambahDaftar").addEventListener("click", tambahDaftarSiswa);
+    document.getElementById("btnDownloadExcel").addEventListener("click", downloadExcel);
+    document.getElementById("btnSimpanEdit").addEventListener("click", simpanEdit);
+
+    document.getElementById("btnBatalEdit").addEventListener("click", () => {
+      modalEditBg.classList.add("hidden");
+      idSedangDiedit = null;
+    });
+
+    kelas.addEventListener("change", () => {
+      isiMapel(kelas, mapel, batasInfo);
+    });
+
+    kelasDaftar.addEventListener("change", () => {
+      isiMapel(kelasDaftar, mapelDaftar);
+    });
+
+    editJenisNilai.addEventListener("change", () => {
+      const data = semuaData.find(item => item.id === idSedangDiedit);
+
+      if (data) {
+        editNilai.value = data[editJenisNilai.value] ?? "";
+      }
+    });
+
     cari.addEventListener("input", tampilTabel);
 
     onAuthStateChanged(auth, async (user) => {
@@ -504,6 +940,7 @@
         loginPage.classList.add("hidden");
         appPage.classList.remove("hidden");
         userEmail.textContent = "Login sebagai: " + user.email;
+
         await ambilData();
       } else {
         loginPage.classList.remove("hidden");
