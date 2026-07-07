@@ -70,13 +70,6 @@
       gap: 16px;
     }
 
-    .nilai-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-      margin-top: 16px;
-    }
-
     label {
       display: block;
       margin-bottom: 6px;
@@ -175,13 +168,22 @@
       padding: 18px;
     }
 
+    .catatan {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #fff8fc;
+      border-left: 5px solid #d63384;
+      color: #7e3157;
+      font-size: 14px;
+    }
+
     @media (max-width: 800px) {
       body { padding: 10px; }
       .container { padding: 18px; }
       .ringkasan { grid-template-columns: repeat(2, 1fr); }
       .form-grid { grid-template-columns: 1fr; }
       .full { grid-column: span 1; }
-      .nilai-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -189,7 +191,7 @@
 <body>
   <div class="container">
     <h1>🌸 Aplikasi Nilai Siswa MI 🌸</h1>
-    <p class="subtitle">Nilai Tugas, UH, UAS, dan Nilai Akhir</p>
+    <p class="subtitle">Input nilai bertahap: Tugas, UH, dan UAS</p>
 
     <div class="ringkasan">
       <div class="kartu">
@@ -233,32 +235,22 @@
         <label for="nama">Nama Siswa</label>
         <input type="text" id="nama" placeholder="Masukkan nama siswa">
       </div>
-    </div>
 
-    <div class="nilai-grid">
       <div>
-        <label for="tugas1">Tugas 1</label>
-        <input type="number" id="tugas1" min="0" max="100" placeholder="0-100">
+        <label for="jenisNilai">Jenis Penilaian</label>
+        <select id="jenisNilai">
+          <option value="">-- Pilih Jenis Nilai --</option>
+          <option value="tugas1">Tugas 1</option>
+          <option value="tugas2">Tugas 2</option>
+          <option value="uh1">UH 1</option>
+          <option value="uh2">UH 2</option>
+          <option value="uas">UAS</option>
+        </select>
       </div>
 
       <div>
-        <label for="tugas2">Tugas 2</label>
-        <input type="number" id="tugas2" min="0" max="100" placeholder="0-100">
-      </div>
-
-      <div>
-        <label for="uh1">UH 1</label>
-        <input type="number" id="uh1" min="0" max="100" placeholder="0-100">
-      </div>
-
-      <div>
-        <label for="uh2">UH 2</label>
-        <input type="number" id="uh2" min="0" max="100" placeholder="0-100">
-      </div>
-
-      <div>
-        <label for="uas">UAS</label>
-        <input type="number" id="uas" min="0" max="100" placeholder="0-100">
+        <label for="nilai">Nilai</label>
+        <input type="number" id="nilai" min="0" max="100" placeholder="Masukkan nilai 0-100">
       </div>
     </div>
 
@@ -266,7 +258,12 @@
       Pilih kelas untuk melihat mata pelajaran dan jumlah siswa.
     </div>
 
-    <button onclick="tambahNilai()">Tambah Nilai</button>
+    <div class="catatan">
+      Nilai akhir adalah rata-rata sementara dari nilai yang sudah diinput.
+      Jika baru Tugas 1 dan UH 1 yang diisi, nilai akhir dihitung dari dua nilai tersebut.
+    </div>
+
+    <button onclick="simpanNilaiBertahap()">Simpan Nilai</button>
     <button class="reset" onclick="hapusSemuaData()">Hapus Semua Data</button>
 
     <div class="pencarian">
@@ -287,7 +284,7 @@
             <th>UH 1</th>
             <th>UH 2</th>
             <th>UAS</th>
-            <th>Nilai Akhir</th>
+            <th>Nilai Akhir Sementara</th>
             <th>Kategori</th>
             <th>Aksi</th>
           </tr>
@@ -339,7 +336,28 @@
       });
     }
 
+    function nilaiAkhirSementara(data) {
+      const daftarNilai = [
+        data.tugas1,
+        data.tugas2,
+        data.uh1,
+        data.uh2,
+        data.uas
+      ].filter(function(nilai) {
+        return nilai !== null && nilai !== undefined;
+      });
+
+      if (daftarNilai.length === 0) return null;
+
+      const total = daftarNilai.reduce(function(jumlah, nilai) {
+        return jumlah + nilai;
+      }, 0);
+
+      return Number((total / daftarNilai.length).toFixed(2));
+    }
+
     function kategoriNilai(nilaiAkhir) {
+      if (nilaiAkhir === null) return "-";
       if (nilaiAkhir >= 90) return "Sangat Baik";
       if (nilaiAkhir >= 75) return "Baik";
       if (nilaiAkhir >= 60) return "Cukup";
@@ -358,89 +376,79 @@
       return [...new Set(daftarNama)].length;
     }
 
-    function nilaiValid(nilai) {
-      return nilai >= 0 && nilai <= 100;
-    }
-
-    function tambahNilai() {
+    function simpanNilaiBertahap() {
       const nama = document.getElementById("nama").value.trim();
       const kelas = document.getElementById("kelas").value;
       const mapel = document.getElementById("mapel").value;
-
-      const tugas1 = Number(document.getElementById("tugas1").value);
-      const tugas2 = Number(document.getElementById("tugas2").value);
-      const uh1 = Number(document.getElementById("uh1").value);
-      const uh2 = Number(document.getElementById("uh2").value);
-      const uas = Number(document.getElementById("uas").value);
-
-      const semuaInputNilai = [
-        document.getElementById("tugas1").value,
-        document.getElementById("tugas2").value,
-        document.getElementById("uh1").value,
-        document.getElementById("uh2").value,
-        document.getElementById("uas").value
-      ];
-
-      if (nama === "" || kelas === "" || mapel === "" || semuaInputNilai.includes("")) {
-        alert("Mohon lengkapi nama, kelas, mata pelajaran, dan semua nilai.");
-        return;
-      }
+      const jenisNilai = document.getElementById("jenisNilai").value;
+      const nilaiInput = document.getElementById("nilai").value;
 
       if (
-        !nilaiValid(tugas1) ||
-        !nilaiValid(tugas2) ||
-        !nilaiValid(uh1) ||
-        !nilaiValid(uh2) ||
-        !nilaiValid(uas)
+        nama === "" ||
+        kelas === "" ||
+        mapel === "" ||
+        jenisNilai === "" ||
+        nilaiInput === ""
       ) {
-        alert("Semua nilai harus berada antara 0 sampai 100.");
+        alert("Mohon lengkapi semua data terlebih dahulu.");
         return;
       }
 
-      const namaSudahAda = dataNilai.some(function(data) {
-        return data.nama.toLowerCase() === nama.toLowerCase() &&
-               data.kelas === kelas;
+      const nilai = Number(nilaiInput);
+
+      if (nilai < 0 || nilai > 100) {
+        alert("Nilai harus berada antara 0 sampai 100.");
+        return;
+      }
+
+      const indeksSiswa = dataNilai.findIndex(function(data) {
+        return (
+          data.nama.toLowerCase() === nama.toLowerCase() &&
+          data.kelas === kelas &&
+          data.mapel === mapel
+        );
       });
 
-      const jumlahSiswa = jumlahNamaUnikDalamKelas(kelas);
+      if (indeksSiswa === -1) {
+        const jumlahSiswa = jumlahNamaUnikDalamKelas(kelas);
 
-      if (!namaSudahAda && jumlahSiswa >= batasSiswa[kelas]) {
-        alert(
-          "Kelas " + kelas + " sudah mencapai batas maksimal " +
-          batasSiswa[kelas] + " siswa."
-        );
-        return;
+        if (jumlahSiswa >= batasSiswa[kelas]) {
+          alert(
+            "Kelas " + kelas + " sudah mencapai batas maksimal " +
+            batasSiswa[kelas] + " siswa."
+          );
+          return;
+        }
+
+        const dataBaru = {
+          id: Date.now(),
+          nama: nama,
+          kelas: kelas,
+          mapel: mapel,
+          tugas1: null,
+          tugas2: null,
+          uh1: null,
+          uh2: null,
+          uas: null
+        };
+
+        dataBaru[jenisNilai] = nilai;
+        dataNilai.push(dataBaru);
+      } else {
+        dataNilai[indeksSiswa][jenisNilai] = nilai;
       }
 
-      const nilaiAkhir = Number(
-        ((tugas1 + tugas2 + uh1 + uh2 + uas) / 5).toFixed(2)
-      );
-
-      const dataBaru = {
-        id: Date.now(),
-        nama: nama,
-        kelas: kelas,
-        mapel: mapel,
-        tugas1: tugas1,
-        tugas2: tugas2,
-        uh1: uh1,
-        uh2: uh2,
-        uas: uas,
-        nilaiAkhir: nilaiAkhir,
-        kategori: kategoriNilai(nilaiAkhir)
-      };
-
-      dataNilai.push(dataBaru);
       localStorage.setItem("dataNilaiMI", JSON.stringify(dataNilai));
 
       document.getElementById("nama").value = "";
-      document.getElementById("tugas1").value = "";
-      document.getElementById("tugas2").value = "";
-      document.getElementById("uh1").value = "";
-      document.getElementById("uh2").value = "";
-      document.getElementById("uas").value = "";
+      document.getElementById("jenisNilai").value = "";
+      document.getElementById("nilai").value = "";
 
       tampilkanData();
+    }
+
+    function tampilkanNilai(nilai) {
+      return nilai === null || nilai === undefined ? "-" : nilai;
     }
 
     function tampilkanData() {
@@ -460,19 +468,22 @@
       }
 
       dataTampil.forEach(function(data, index) {
+        const akhir = nilaiAkhirSementara(data);
+        const kategori = kategoriNilai(akhir);
+
         tabelNilai.innerHTML += `
           <tr>
             <td>${index + 1}</td>
             <td>${data.nama}</td>
             <td>${data.kelas}</td>
             <td>${data.mapel}</td>
-            <td>${data.tugas1}</td>
-            <td>${data.tugas2}</td>
-            <td>${data.uh1}</td>
-            <td>${data.uh2}</td>
-            <td>${data.uas}</td>
-            <td><strong>${data.nilaiAkhir}</strong></td>
-            <td>${data.kategori}</td>
+            <td>${tampilkanNilai(data.tugas1)}</td>
+            <td>${tampilkanNilai(data.tugas2)}</td>
+            <td>${tampilkanNilai(data.uh1)}</td>
+            <td>${tampilkanNilai(data.uh2)}</td>
+            <td>${tampilkanNilai(data.uas)}</td>
+            <td><strong>${akhir === null ? "-" : akhir}</strong></td>
+            <td>${kategori}</td>
             <td>
               <button class="hapus" onclick="hapusData(${data.id})">
                 Hapus
@@ -484,7 +495,7 @@
     }
 
     function hapusData(id) {
-      const yakin = confirm("Hapus data nilai ini?");
+      const yakin = confirm("Hapus semua nilai siswa ini untuk mata pelajaran tersebut?");
       if (!yakin) return;
 
       dataNilai = dataNilai.filter(function(data) {
