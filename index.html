@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikasi Penilaian Guru MI</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #1f4e79;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 6px;
+      background: #1f4e79;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #163a5b;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 25px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background: #1f4e79;
+      color: white;
+    }
+
+    .hapus {
+      background: #d9534f;
+      padding: 7px 10px;
+      margin: 0;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Penilaian Guru MI</h1>
+
+    <label>Nama Guru</label>
+    <input type="text" id="namaGuru" placeholder="Masukkan nama guru">
+
+    <label>Mata Pelajaran</label>
+    <input type="text" id="mapel" placeholder="Contoh: Matematika">
+
+    <label>Nilai</label>
+    <input type="number" id="nilai" placeholder="Masukkan nilai 0-100">
+
+    <button onclick="tambahData()">Tambah Penilaian</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama Guru</th>
+          <th>Mata Pelajaran</th>
+          <th>Nilai</th>
+          <th>Kategori</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="tabelData"></tbody>
+    </table>
+  </div>
+
+  <script>
+    let nomor = 1;
+
+    function tambahData() {
+      const namaGuru = document.getElementById("namaGuru").value;
+      const mapel = document.getElementById("mapel").value;
+      const nilai = document.getElementById("nilai").value;
+
+      if (namaGuru === "" || mapel === "" || nilai === "") {
+        alert("Semua data harus diisi.");
+        return;
+      }
+
+      let kategori = "";
+
+      if (nilai >= 90) {
+        kategori = "Sangat Baik";
+      } else if (nilai >= 75) {
+        kategori = "Baik";
+      } else if (nilai >= 60) {
+        kategori = "Cukup";
+      } else {
+        kategori = "Perlu Pembinaan";
+      }
+
+      const tabel = document.getElementById("tabelData");
+
+      tabel.innerHTML += `
+        <tr>
+          <td>${nomor}</td>
+          <td>${namaGuru}</td>
+          <td>${mapel}</td>
+          <td>${nilai}</td>
+          <td>${kategori}</td>
+          <td>
+            <button class="hapus" onclick="hapusData(this)">Hapus</button>
+          </td>
+        </tr>
+      `;
+
+      nomor++;
+
+      document.getElementById("namaGuru").value = "";
+      document.getElementById("mapel").value = "";
+      document.getElementById("nilai").value = "";
+    }
+
+    function hapusData(tombol) {
+      tombol.parentElement.parentElement.remove();
+    }
+  </script>
+</body>
+</html>
