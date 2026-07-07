@@ -4,10 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aplikasi Nilai Siswa MI</title>
-
   <style>
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       padding: 20px;
@@ -15,35 +13,30 @@
       background: linear-gradient(135deg, #ffe3f0, #fff7fb);
       color: #5d2140;
     }
-
     .container {
       max-width: 1250px;
       margin: auto;
       padding: 28px;
       background: white;
       border-radius: 20px;
-      box-shadow: 0 8px 28px rgba(205, 55, 130, 0.18);
+      box-shadow: 0 8px 28px rgba(205, 55, 130, .18);
     }
-
     h1 {
       margin: 0;
       text-align: center;
       color: #d63384;
     }
-
     .subtitle {
       text-align: center;
       color: #9d3c69;
       margin: 10px 0 25px;
     }
-
     .ringkasan {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 12px;
       margin-bottom: 25px;
     }
-
     .kartu {
       padding: 14px;
       text-align: center;
@@ -51,37 +44,29 @@
       border-radius: 12px;
       background: #fff0f7;
     }
-
     .kartu h3 {
       margin: 0;
       color: #c51f70;
       font-size: 16px;
     }
-
     .kartu p {
       margin: 8px 0 0;
       color: #7e3157;
       font-size: 14px;
       line-height: 1.5;
     }
-
     .form-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 16px;
     }
-
-    .full {
-      grid-column: span 2;
-    }
-
+    .full { grid-column: span 2; }
     label {
       display: block;
       margin-bottom: 6px;
       color: #a61e62;
       font-weight: bold;
     }
-
     input, select {
       width: 100%;
       padding: 11px;
@@ -90,36 +75,31 @@
       font-size: 15px;
       outline: none;
     }
-
     input:focus, select:focus {
       border-color: #d63384;
       box-shadow: 0 0 0 3px #ffe0ee;
     }
-
     .info, .catatan {
       margin-top: 16px;
       padding: 12px;
       border-radius: 10px;
       font-size: 14px;
     }
-
     .info {
       color: #9b2d60;
       border: 1px solid #f6c0d8;
       background: #fff0f7;
     }
-
     .catatan {
       color: #7e3157;
       border-left: 5px solid #d63384;
       background: #fff8fc;
     }
-
     button {
       margin-top: 20px;
       margin-right: 8px;
       padding: 12px 18px;
-      border: none;
+      border: 0;
       border-radius: 9px;
       background: #d63384;
       color: white;
@@ -127,57 +107,44 @@
       font-weight: bold;
       cursor: pointer;
     }
-
-    button:hover {
-      background: #b91f6d;
-    }
-
-    .reset {
-      background: #8d4d6d;
-    }
-
+    button:hover { background: #b91f6d; }
+    .reset { background: #8d4d6d; }
     .hapus {
       margin: 0;
       padding: 7px 10px;
       background: #ef5b91;
       font-size: 12px;
     }
-
-    .pencarian {
-      margin-top: 30px;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-    }
-
+    .pencarian { margin-top: 30px; }
+    .table-wrap { overflow-x: auto; }
     table {
       width: 100%;
       min-width: 1100px;
       margin-top: 16px;
       border-collapse: collapse;
     }
-
     th, td {
       padding: 10px;
       text-align: center;
       border: 1px solid #f4bdd4;
     }
-
     th {
       color: white;
       background: #d63384;
     }
-
-    tr:nth-child(even) {
-      background: #fff2f8;
-    }
-
+    tr:nth-child(even) { background: #fff2f8; }
     .kosong {
       padding: 18px;
       color: #a04b71;
     }
-
+    .status {
+      margin-top: 14px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #fff0f7;
+      color: #9b2d60;
+      display: none;
+    }
     @media (max-width: 800px) {
       body { padding: 10px; }
       .container { padding: 18px; }
@@ -187,29 +154,16 @@
     }
   </style>
 </head>
-
 <body>
   <div class="container">
     <h1>🌸 Aplikasi Nilai Siswa MI 🌸</h1>
-    <p class="subtitle">Input nilai bertahap: Tugas, UH, dan UAS</p>
+    <p class="subtitle">Nilai tersimpan online di Firebase</p>
 
     <div class="ringkasan">
-      <div class="kartu">
-        <h3>Kelas 4A</h3>
-        <p>17 siswa<br>Bahasa Indonesia</p>
-      </div>
-      <div class="kartu">
-        <h3>Kelas 4B</h3>
-        <p>17 siswa<br>Bahasa Indonesia</p>
-      </div>
-      <div class="kartu">
-        <h3>Kelas 5</h3>
-        <p>28 siswa<br>Aqidah Akhlak, SKI, Fiqh, Qur'an Hadits</p>
-      </div>
-      <div class="kartu">
-        <h3>Kelas 6</h3>
-        <p>12 siswa<br>Aqidah Akhlak, SKI, Fiqh, Qur'an Hadits</p>
-      </div>
+      <div class="kartu"><h3>Kelas 4A</h3><p>17 siswa<br>Bahasa Indonesia</p></div>
+      <div class="kartu"><h3>Kelas 4B</h3><p>17 siswa<br>Bahasa Indonesia</p></div>
+      <div class="kartu"><h3>Kelas 5</h3><p>28 siswa<br>4 mata pelajaran</p></div>
+      <div class="kartu"><h3>Kelas 6</h3><p>12 siswa<br>4 mata pelajaran</p></div>
     </div>
 
     <div class="form-grid">
@@ -259,11 +213,14 @@
     </div>
 
     <div class="catatan">
-      Nilai akhir adalah rata-rata sementara dari nilai yang sudah diisi. Nilai yang belum diisi akan tampil sebagai tanda “-”.
+      Nilai akhir adalah rata-rata sementara dari nilai yang sudah diisi.
+      Nilai dapat diinput bertahap dan tersimpan di Firebase.
     </div>
 
     <button onclick="simpanNilaiBertahap()">Simpan Nilai</button>
     <button class="reset" onclick="hapusSemuaData()">Hapus Semua Data</button>
+
+    <div id="status" class="status"></div>
 
     <div class="pencarian">
       <label for="cari">Cari Nama Siswa</label>
@@ -293,7 +250,33 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      getDocs,
+      addDoc,
+      updateDoc,
+      deleteDoc,
+      doc,
+      serverTimestamp,
+      writeBatch
+    } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAHjLiRVXam0a1C0a46BxqcTIIfmqRplZU",
+      authDomain: "penilaian-guru-mi.firebaseapp.com",
+      projectId: "penilaian-guru-mi",
+      storageBucket: "penilaian-guru-mi.firebasestorage.app",
+      messagingSenderId: "718529419067",
+      appId: "1:718529419067:web:78a1b5b48490e9f365891e"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const koleksiNilai = collection(db, "nilaiSiswa");
+
     const batasSiswa = {
       "4A": 17,
       "4B": 17,
@@ -301,9 +284,19 @@
       "6": 12
     };
 
-    let dataNilai = JSON.parse(localStorage.getItem("dataNilaiMI")) || [];
+    let dataNilai = [];
 
-    function ubahMapel() {
+    function tampilStatus(teks) {
+      const status = document.getElementById("status");
+      status.textContent = teks;
+      status.style.display = "block";
+
+      setTimeout(() => {
+        status.style.display = "none";
+      }, 3500);
+    }
+
+    window.ubahMapel = function () {
       const kelas = document.getElementById("kelas").value;
       const mapel = document.getElementById("mapel");
       const infoKelas = document.getElementById("infoKelas");
@@ -314,44 +307,51 @@
 
       if (kelas === "4A" || kelas === "4B") {
         daftarMapel = ["Bahasa Indonesia"];
-      } else if (kelas === "5" || kelas === "6") {
-        daftarMapel = ["Aqidah Akhlak", "SKI", "Fiqh", "Qur'an Hadits"];
       }
 
-      daftarMapel.forEach(function(namaMapel) {
+      if (kelas === "5" || kelas === "6") {
+        daftarMapel = [
+          "Aqidah Akhlak",
+          "SKI",
+          "Fiqh",
+          "Qur'an Hadits"
+        ];
+      }
+
+      daftarMapel.forEach(function (namaMapel) {
         const option = document.createElement("option");
         option.value = namaMapel;
         option.textContent = namaMapel;
         mapel.appendChild(option);
       });
 
-      if (kelas !== "") {
+      if (kelas) {
         infoKelas.textContent =
           "Kelas " + kelas + " memiliki maksimal " + batasSiswa[kelas] + " siswa.";
       } else {
         infoKelas.textContent =
           "Pilih kelas untuk melihat mata pelajaran dan jumlah siswa.";
       }
-    }
+    };
 
     function hitungNilaiAkhir(data) {
-      const nilaiYangTerisi = [
+      const daftarNilai = [
         data.tugas1,
         data.tugas2,
         data.uh1,
         data.uh2,
         data.uas
-      ].filter(function(nilai) {
+      ].filter(function (nilai) {
         return nilai !== null && nilai !== undefined;
       });
 
-      if (nilaiYangTerisi.length === 0) return null;
+      if (daftarNilai.length === 0) return null;
 
-      const total = nilaiYangTerisi.reduce(function(jumlah, nilai) {
+      const total = daftarNilai.reduce(function (jumlah, nilai) {
         return jumlah + nilai;
       }, 0);
 
-      return Number((total / nilaiYangTerisi.length).toFixed(2));
+      return Number((total / daftarNilai.length).toFixed(2));
     }
 
     function kategoriNilai(nilai) {
@@ -363,25 +363,43 @@
     }
 
     function jumlahSiswaDalamKelas(kelas) {
-      const namaUnik = dataNilai
-        .filter(function(data) {
+      const daftarNama = dataNilai
+        .filter(function (data) {
           return data.kelas === kelas;
         })
-        .map(function(data) {
+        .map(function (data) {
           return data.nama.toLowerCase();
         });
 
-      return [...new Set(namaUnik)].length;
+      return new Set(daftarNama).size;
     }
 
-    function simpanNilaiBertahap() {
+    async function ambilDataFirebase() {
+      try {
+        const hasil = await getDocs(koleksiNilai);
+
+        dataNilai = hasil.docs.map(function (dokumen) {
+          return {
+            id: dokumen.id,
+            ...dokumen.data()
+          };
+        });
+
+        tampilkanData();
+      } catch (error) {
+        console.error(error);
+        tampilStatus("Tidak bisa membaca Firebase. Pastikan Firestore sudah aktif.");
+      }
+    }
+
+    window.simpanNilaiBertahap = async function () {
       const nama = document.getElementById("nama").value.trim();
       const kelas = document.getElementById("kelas").value;
       const mapel = document.getElementById("mapel").value;
       const jenisNilai = document.getElementById("jenisNilai").value;
       const nilaiInput = document.getElementById("nilai").value;
 
-      if (nama === "" || kelas === "" || mapel === "" || jenisNilai === "" || nilaiInput === "") {
+      if (!nama || !kelas || !mapel || !jenisNilai || nilaiInput === "") {
         alert("Isi nama, kelas, mata pelajaran, jenis penilaian, dan nilai.");
         return;
       }
@@ -393,58 +411,66 @@
         return;
       }
 
-      const indeks = dataNilai.findIndex(function(data) {
-        return data.nama.toLowerCase() === nama.toLowerCase() &&
-               data.kelas === kelas &&
-               data.mapel === mapel;
-      });
+      try {
+        const indeks = dataNilai.findIndex(function (data) {
+          return (
+            data.nama.toLowerCase() === nama.toLowerCase() &&
+            data.kelas === kelas &&
+            data.mapel === mapel
+          );
+        });
 
-      if (indeks === -1) {
-        if (jumlahSiswaDalamKelas(kelas) >= batasSiswa[kelas]) {
-          alert("Kelas " + kelas + " sudah mencapai batas maksimal siswa.");
-          return;
+        if (indeks === -1) {
+          if (jumlahSiswaDalamKelas(kelas) >= batasSiswa[kelas]) {
+            alert("Kelas " + kelas + " sudah mencapai batas maksimal siswa.");
+            return;
+          }
+
+          const siswaBaru = {
+            nama: nama,
+            kelas: kelas,
+            mapel: mapel,
+            tugas1: null,
+            tugas2: null,
+            uh1: null,
+            uh2: null,
+            uas: null,
+            dibuatPada: serverTimestamp()
+          };
+
+          siswaBaru[jenisNilai] = nilai;
+
+          await addDoc(koleksiNilai, siswaBaru);
+        } else {
+          await updateDoc(doc(db, "nilaiSiswa", dataNilai[indeks].id), {
+            [jenisNilai]: nilai
+          });
         }
 
-        const siswaBaru = {
-          id: Date.now(),
-          nama: nama,
-          kelas: kelas,
-          mapel: mapel,
-          tugas1: null,
-          tugas2: null,
-          uh1: null,
-          uh2: null,
-          uas: null
-        };
+        document.getElementById("nama").value = "";
+        document.getElementById("jenisNilai").value = "";
+        document.getElementById("nilai").value = "";
 
-        siswaBaru[jenisNilai] = nilai;
-        dataNilai.push(siswaBaru);
-      } else {
-        dataNilai[indeks][jenisNilai] = nilai;
+        tampilStatus("Nilai berhasil disimpan ke Firebase.");
+        await ambilDataFirebase();
+      } catch (error) {
+        console.error(error);
+        tampilStatus("Gagal menyimpan. Periksa aturan Firestore.");
       }
-
-      localStorage.setItem("dataNilaiMI", JSON.stringify(dataNilai));
-
-      document.getElementById("nama").value = "";
-      document.getElementById("jenisNilai").value = "";
-      document.getElementById("nilai").value = "";
-
-      tampilkanData();
-    }
+    };
 
     function nilaiTampil(nilai) {
-      return nilai === null || nilai === undefined ? "-" : nilai;
+      if (nilai === null || nilai === undefined) return "-";
+      return nilai;
     }
 
-    function tampilkanData() {
+    window.tampilkanData = function () {
       const tabelNilai = document.getElementById("tabelNilai");
       const kataCari = document.getElementById("cari").value.toLowerCase();
 
-      const hasil = dataNilai.filter(function(data) {
+      const hasil = dataNilai.filter(function (data) {
         return data.nama.toLowerCase().includes(kataCari);
       });
-
-      tabelNilai.innerHTML = "";
 
       if (hasil.length === 0) {
         tabelNilai.innerHTML =
@@ -452,10 +478,10 @@
         return;
       }
 
-      hasil.forEach(function(data, index) {
+      tabelNilai.innerHTML = hasil.map(function (data, index) {
         const akhir = hitungNilaiAkhir(data);
 
-        tabelNilai.innerHTML += `
+        return `
           <tr>
             <td>${index + 1}</td>
             <td>${data.nama}</td>
@@ -468,32 +494,56 @@
             <td>${nilaiTampil(data.uas)}</td>
             <td><strong>${akhir === null ? "-" : akhir}</strong></td>
             <td>${kategoriNilai(akhir)}</td>
-            <td><button class="hapus" onclick="hapusData(${data.id})">Hapus</button></td>
+            <td>
+              <button class="hapus" onclick="hapusData('${data.id}')">
+                Hapus
+              </button>
+            </td>
           </tr>
         `;
-      });
-    }
+      }).join("");
+    };
 
-    function hapusData(id) {
-      if (!confirm("Hapus semua nilai siswa ini pada mata pelajaran tersebut?")) return;
+    window.hapusData = async function (id) {
+      const yakin = confirm(
+        "Hapus semua nilai siswa ini pada mata pelajaran tersebut?"
+      );
 
-      dataNilai = dataNilai.filter(function(data) {
-        return data.id !== id;
-      });
+      if (!yakin) return;
 
-      localStorage.setItem("dataNilaiMI", JSON.stringify(dataNilai));
-      tampilkanData();
-    }
+      try {
+        await deleteDoc(doc(db, "nilaiSiswa", id));
+        tampilStatus("Data berhasil dihapus.");
+        await ambilDataFirebase();
+      } catch (error) {
+        console.error(error);
+        tampilStatus("Gagal menghapus data.");
+      }
+    };
 
-    function hapusSemuaData() {
-      if (!confirm("Yakin ingin menghapus semua data nilai?")) return;
+    window.hapusSemuaData = async function () {
+      const yakin = confirm("Yakin ingin menghapus semua data nilai?");
 
-      dataNilai = [];
-      localStorage.removeItem("dataNilaiMI");
-      tampilkanData();
-    }
+      if (!yakin) return;
 
-    tampilkanData();
+      try {
+        const batch = writeBatch(db);
+
+        dataNilai.forEach(function (data) {
+          batch.delete(doc(db, "nilaiSiswa", data.id));
+        });
+
+        await batch.commit();
+
+        tampilStatus("Semua data berhasil dihapus.");
+        await ambilDataFirebase();
+      } catch (error) {
+        console.error(error);
+        tampilStatus("Gagal menghapus semua data.");
+      }
+    };
+
+    ambilDataFirebase();
   </script>
 </body>
 </html>
