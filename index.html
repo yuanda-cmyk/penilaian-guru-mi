@@ -3,166 +3,508 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aplikasi Penilaian Guru MI</title>
+  <title>Aplikasi Nilai Siswa MI</title>
 
   <style>
+    * { box-sizing: border-box; }
+
     body {
       font-family: Arial, sans-serif;
-      background: #f4f7fb;
       margin: 0;
       padding: 20px;
+      background: linear-gradient(135deg, #ffe1ef, #fff6fa);
+      color: #5b1d3b;
     }
 
     .container {
-      max-width: 800px;
+      max-width: 1250px;
       margin: auto;
       background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 28px;
+      border-radius: 20px;
+      box-shadow: 0 8px 28px rgba(204, 47, 122, 0.18);
     }
 
     h1 {
       text-align: center;
-      color: #1f4e79;
+      color: #d63384;
+      margin: 0;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #9c3b68;
+      margin: 10px 0 25px;
+    }
+
+    .ringkasan {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .kartu {
+      background: #fff0f7;
+      border: 1px solid #f6b4d1;
+      padding: 14px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .kartu h3 {
+      margin: 0;
+      color: #c51f70;
+      font-size: 16px;
+    }
+
+    .kartu p {
+      margin: 8px 0 0;
+      font-size: 14px;
+      color: #7e3157;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .nilai-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 16px;
     }
 
     label {
       display: block;
-      margin-top: 15px;
+      margin-bottom: 6px;
       font-weight: bold;
+      color: #a61e62;
     }
 
     input, select {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
+      padding: 11px;
+      border: 1px solid #f2a6c8;
+      border-radius: 9px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: #d63384;
+      box-shadow: 0 0 0 3px #ffe0ee;
+    }
+
+    .full {
+      grid-column: span 2;
+    }
+
+    .info {
+      margin-top: 16px;
+      padding: 12px;
+      background: #fff0f7;
+      border-radius: 10px;
+      color: #9b2d60;
+      border: 1px solid #f6c0d8;
     }
 
     button {
       margin-top: 20px;
       padding: 12px 18px;
       border: none;
-      border-radius: 6px;
-      background: #1f4e79;
+      border-radius: 9px;
+      background: #d63384;
       color: white;
-      font-size: 16px;
+      font-size: 15px;
+      font-weight: bold;
       cursor: pointer;
+      margin-right: 8px;
     }
 
     button:hover {
-      background: #163a5b;
+      background: #b91f6d;
+    }
+
+    .hapus {
+      margin: 0;
+      padding: 7px 10px;
+      background: #ef5b91;
+      font-size: 12px;
+    }
+
+    .reset {
+      background: #8d4d6d;
+    }
+
+    .pencarian {
+      margin-top: 30px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 25px;
+      margin-top: 16px;
+      min-width: 1100px;
     }
 
     th, td {
-      border: 1px solid #ccc;
+      border: 1px solid #f4bdd4;
       padding: 10px;
       text-align: center;
     }
 
     th {
-      background: #1f4e79;
+      background: #d63384;
       color: white;
     }
 
-    .hapus {
-      background: #d9534f;
-      padding: 7px 10px;
-      margin: 0;
-      font-size: 13px;
+    tr:nth-child(even) {
+      background: #fff2f8;
+    }
+
+    .kosong {
+      text-align: center;
+      color: #a04b71;
+      padding: 18px;
+    }
+
+    @media (max-width: 800px) {
+      body { padding: 10px; }
+      .container { padding: 18px; }
+      .ringkasan { grid-template-columns: repeat(2, 1fr); }
+      .form-grid { grid-template-columns: 1fr; }
+      .full { grid-column: span 1; }
+      .nilai-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>Penilaian Guru MI</h1>
+    <h1>🌸 Aplikasi Nilai Siswa MI 🌸</h1>
+    <p class="subtitle">Nilai Tugas, UH, UAS, dan Nilai Akhir</p>
 
-    <label>Nama Guru</label>
-    <input type="text" id="namaGuru" placeholder="Masukkan nama guru">
+    <div class="ringkasan">
+      <div class="kartu">
+        <h3>Kelas 4A</h3>
+        <p>17 siswa<br>Bahasa Indonesia</p>
+      </div>
+      <div class="kartu">
+        <h3>Kelas 4B</h3>
+        <p>17 siswa<br>Bahasa Indonesia</p>
+      </div>
+      <div class="kartu">
+        <h3>Kelas 5</h3>
+        <p>28 siswa<br>4 mata pelajaran</p>
+      </div>
+      <div class="kartu">
+        <h3>Kelas 6</h3>
+        <p>12 siswa<br>4 mata pelajaran</p>
+      </div>
+    </div>
 
-    <label>Mata Pelajaran</label>
-    <input type="text" id="mapel" placeholder="Contoh: Matematika">
+    <div class="form-grid">
+      <div>
+        <label for="kelas">Kelas</label>
+        <select id="kelas" onchange="ubahMapel()">
+          <option value="">-- Pilih Kelas --</option>
+          <option value="4A">Kelas 4A</option>
+          <option value="4B">Kelas 4B</option>
+          <option value="5">Kelas 5</option>
+          <option value="6">Kelas 6</option>
+        </select>
+      </div>
 
-    <label>Nilai</label>
-    <input type="number" id="nilai" placeholder="Masukkan nilai 0-100">
+      <div>
+        <label for="mapel">Mata Pelajaran</label>
+        <select id="mapel">
+          <option value="">-- Pilih kelas terlebih dahulu --</option>
+        </select>
+      </div>
 
-    <button onclick="tambahData()">Tambah Penilaian</button>
+      <div class="full">
+        <label for="nama">Nama Siswa</label>
+        <input type="text" id="nama" placeholder="Masukkan nama siswa">
+      </div>
+    </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>Nama Guru</th>
-          <th>Mata Pelajaran</th>
-          <th>Nilai</th>
-          <th>Kategori</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody id="tabelData"></tbody>
-    </table>
+    <div class="nilai-grid">
+      <div>
+        <label for="tugas1">Tugas 1</label>
+        <input type="number" id="tugas1" min="0" max="100" placeholder="0-100">
+      </div>
+
+      <div>
+        <label for="tugas2">Tugas 2</label>
+        <input type="number" id="tugas2" min="0" max="100" placeholder="0-100">
+      </div>
+
+      <div>
+        <label for="uh1">UH 1</label>
+        <input type="number" id="uh1" min="0" max="100" placeholder="0-100">
+      </div>
+
+      <div>
+        <label for="uh2">UH 2</label>
+        <input type="number" id="uh2" min="0" max="100" placeholder="0-100">
+      </div>
+
+      <div>
+        <label for="uas">UAS</label>
+        <input type="number" id="uas" min="0" max="100" placeholder="0-100">
+      </div>
+    </div>
+
+    <div class="info" id="infoKelas">
+      Pilih kelas untuk melihat mata pelajaran dan jumlah siswa.
+    </div>
+
+    <button onclick="tambahNilai()">Tambah Nilai</button>
+    <button class="reset" onclick="hapusSemuaData()">Hapus Semua Data</button>
+
+    <div class="pencarian">
+      <label for="cari">Cari Nama Siswa</label>
+      <input type="text" id="cari" placeholder="Ketik nama siswa..." onkeyup="tampilkanData()">
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama Siswa</th>
+            <th>Kelas</th>
+            <th>Mata Pelajaran</th>
+            <th>Tugas 1</th>
+            <th>Tugas 2</th>
+            <th>UH 1</th>
+            <th>UH 2</th>
+            <th>UAS</th>
+            <th>Nilai Akhir</th>
+            <th>Kategori</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tabelNilai"></tbody>
+      </table>
+    </div>
   </div>
 
   <script>
-    let nomor = 1;
+    const batasSiswa = {
+      "4A": 17,
+      "4B": 17,
+      "5": 28,
+      "6": 12
+    };
 
-    function tambahData() {
-      const namaGuru = document.getElementById("namaGuru").value;
+    let dataNilai = JSON.parse(localStorage.getItem("dataNilaiMI")) || [];
+
+    function ubahMapel() {
+      const kelas = document.getElementById("kelas").value;
+      const mapel = document.getElementById("mapel");
+      const infoKelas = document.getElementById("infoKelas");
+
+      mapel.innerHTML = '<option value="">-- Pilih Mata Pelajaran --</option>';
+
+      let daftarMapel = [];
+
+      if (kelas === "4A" || kelas === "4B") {
+        daftarMapel = ["Bahasa Indonesia"];
+        infoKelas.innerHTML =
+          "Kelas " + kelas + " memiliki maksimal " + batasSiswa[kelas] +
+          " siswa. Mata pelajaran: Bahasa Indonesia.";
+      } else if (kelas === "5" || kelas === "6") {
+        daftarMapel = ["Aqidah Akhlak", "SKI", "Fiqh", "Qur'an Hadits"];
+        infoKelas.innerHTML =
+          "Kelas " + kelas + " memiliki maksimal " + batasSiswa[kelas] +
+          " siswa. Mata pelajaran: Aqidah Akhlak, SKI, Fiqh, dan Qur'an Hadits.";
+      } else {
+        infoKelas.innerHTML =
+          "Pilih kelas untuk melihat mata pelajaran dan jumlah siswa.";
+      }
+
+      daftarMapel.forEach(function(pelajaran) {
+        const option = document.createElement("option");
+        option.value = pelajaran;
+        option.textContent = pelajaran;
+        mapel.appendChild(option);
+      });
+    }
+
+    function kategoriNilai(nilaiAkhir) {
+      if (nilaiAkhir >= 90) return "Sangat Baik";
+      if (nilaiAkhir >= 75) return "Baik";
+      if (nilaiAkhir >= 60) return "Cukup";
+      return "Perlu Bimbingan";
+    }
+
+    function jumlahNamaUnikDalamKelas(kelas) {
+      const daftarNama = dataNilai
+        .filter(function(data) {
+          return data.kelas === kelas;
+        })
+        .map(function(data) {
+          return data.nama.toLowerCase();
+        });
+
+      return [...new Set(daftarNama)].length;
+    }
+
+    function nilaiValid(nilai) {
+      return nilai >= 0 && nilai <= 100;
+    }
+
+    function tambahNilai() {
+      const nama = document.getElementById("nama").value.trim();
+      const kelas = document.getElementById("kelas").value;
       const mapel = document.getElementById("mapel").value;
-      const nilai = document.getElementById("nilai").value;
 
-      if (namaGuru === "" || mapel === "" || nilai === "") {
-        alert("Semua data harus diisi.");
+      const tugas1 = Number(document.getElementById("tugas1").value);
+      const tugas2 = Number(document.getElementById("tugas2").value);
+      const uh1 = Number(document.getElementById("uh1").value);
+      const uh2 = Number(document.getElementById("uh2").value);
+      const uas = Number(document.getElementById("uas").value);
+
+      const semuaInputNilai = [
+        document.getElementById("tugas1").value,
+        document.getElementById("tugas2").value,
+        document.getElementById("uh1").value,
+        document.getElementById("uh2").value,
+        document.getElementById("uas").value
+      ];
+
+      if (nama === "" || kelas === "" || mapel === "" || semuaInputNilai.includes("")) {
+        alert("Mohon lengkapi nama, kelas, mata pelajaran, dan semua nilai.");
         return;
       }
 
-      let kategori = "";
-
-      if (nilai >= 90) {
-        kategori = "Sangat Baik";
-      } else if (nilai >= 75) {
-        kategori = "Baik";
-      } else if (nilai >= 60) {
-        kategori = "Cukup";
-      } else {
-        kategori = "Perlu Pembinaan";
+      if (
+        !nilaiValid(tugas1) ||
+        !nilaiValid(tugas2) ||
+        !nilaiValid(uh1) ||
+        !nilaiValid(uh2) ||
+        !nilaiValid(uas)
+      ) {
+        alert("Semua nilai harus berada antara 0 sampai 100.");
+        return;
       }
 
-      const tabel = document.getElementById("tabelData");
+      const namaSudahAda = dataNilai.some(function(data) {
+        return data.nama.toLowerCase() === nama.toLowerCase() &&
+               data.kelas === kelas;
+      });
 
-      tabel.innerHTML += `
-        <tr>
-          <td>${nomor}</td>
-          <td>${namaGuru}</td>
-          <td>${mapel}</td>
-          <td>${nilai}</td>
-          <td>${kategori}</td>
-          <td>
-            <button class="hapus" onclick="hapusData(this)">Hapus</button>
-          </td>
-        </tr>
-      `;
+      const jumlahSiswa = jumlahNamaUnikDalamKelas(kelas);
 
-      nomor++;
+      if (!namaSudahAda && jumlahSiswa >= batasSiswa[kelas]) {
+        alert(
+          "Kelas " + kelas + " sudah mencapai batas maksimal " +
+          batasSiswa[kelas] + " siswa."
+        );
+        return;
+      }
 
-      document.getElementById("namaGuru").value = "";
-      document.getElementById("mapel").value = "";
-      document.getElementById("nilai").value = "";
+      const nilaiAkhir = Number(
+        ((tugas1 + tugas2 + uh1 + uh2 + uas) / 5).toFixed(2)
+      );
+
+      const dataBaru = {
+        id: Date.now(),
+        nama: nama,
+        kelas: kelas,
+        mapel: mapel,
+        tugas1: tugas1,
+        tugas2: tugas2,
+        uh1: uh1,
+        uh2: uh2,
+        uas: uas,
+        nilaiAkhir: nilaiAkhir,
+        kategori: kategoriNilai(nilaiAkhir)
+      };
+
+      dataNilai.push(dataBaru);
+      localStorage.setItem("dataNilaiMI", JSON.stringify(dataNilai));
+
+      document.getElementById("nama").value = "";
+      document.getElementById("tugas1").value = "";
+      document.getElementById("tugas2").value = "";
+      document.getElementById("uh1").value = "";
+      document.getElementById("uh2").value = "";
+      document.getElementById("uas").value = "";
+
+      tampilkanData();
     }
 
-    function hapusData(tombol) {
-      tombol.parentElement.parentElement.remove();
+    function tampilkanData() {
+      const tabelNilai = document.getElementById("tabelNilai");
+      const kataCari = document.getElementById("cari").value.toLowerCase();
+
+      const dataTampil = dataNilai.filter(function(data) {
+        return data.nama.toLowerCase().includes(kataCari);
+      });
+
+      tabelNilai.innerHTML = "";
+
+      if (dataTampil.length === 0) {
+        tabelNilai.innerHTML =
+          '<tr><td colspan="12" class="kosong">Belum ada data nilai siswa.</td></tr>';
+        return;
+      }
+
+      dataTampil.forEach(function(data, index) {
+        tabelNilai.innerHTML += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${data.nama}</td>
+            <td>${data.kelas}</td>
+            <td>${data.mapel}</td>
+            <td>${data.tugas1}</td>
+            <td>${data.tugas2}</td>
+            <td>${data.uh1}</td>
+            <td>${data.uh2}</td>
+            <td>${data.uas}</td>
+            <td><strong>${data.nilaiAkhir}</strong></td>
+            <td>${data.kategori}</td>
+            <td>
+              <button class="hapus" onclick="hapusData(${data.id})">
+                Hapus
+              </button>
+            </td>
+          </tr>
+        `;
+      });
     }
+
+    function hapusData(id) {
+      const yakin = confirm("Hapus data nilai ini?");
+      if (!yakin) return;
+
+      dataNilai = dataNilai.filter(function(data) {
+        return data.id !== id;
+      });
+
+      localStorage.setItem("dataNilaiMI", JSON.stringify(dataNilai));
+      tampilkanData();
+    }
+
+    function hapusSemuaData() {
+      const yakin = confirm("Yakin ingin menghapus semua data nilai?");
+      if (!yakin) return;
+
+      dataNilai = [];
+      localStorage.removeItem("dataNilaiMI");
+      tampilkanData();
+    }
+
+    tampilkanData();
   </script>
 </body>
 </html>
